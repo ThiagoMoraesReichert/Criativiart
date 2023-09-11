@@ -3,7 +3,7 @@
 function Config(){
     return(
         <>
-        
+        Configurações
         </>
     );
 }

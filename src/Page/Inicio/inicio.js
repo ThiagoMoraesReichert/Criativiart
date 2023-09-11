@@ -1,24 +1,26 @@
-import logo from "../../Img/Cerebro.png";
+import logo from "./../../Img/Logo.png";
 import cerebro from "../../Img/Cerebro.png";
-import botao from "../../../public/Imgbotao.png";
-import { FundoInicio, Header, Logo, Cerebro, Botao } from "./style";
+import botao from "./../../Img/Botão.png";
+import { FundoInicio, Header, Logo, Cerebro, Botao, TituloI, ParagrafoI, ImgBotao } from "./style";
+import { Link } from "react-router-dom";
 
 function Inicio() {
   return (
     <>
-      <Header>
-        <Logo src={logo} alt="Logo Criativiart" />
-        <h4> Criativiart </h4>
-      </Header>
-
       <FundoInicio>
-        <h1> Criativiart </h1>
-        <p> Compartilhe suas ideias e dificuldades com outros artistas! </p>
-        <h2> Login </h2>
-        <Botao>
-          <img src={botao} /> Login
-        </Botao>
+        <Header>
+          <Logo src={logo} alt="Logo Criativiart" />
+          <h4> Criativiart </h4>
+        </Header>
         <Cerebro src={cerebro} alt="Cérebro criativo com diversas cores" />
+        <TituloI> Criativiart </TituloI>
+        <ParagrafoI> Compartilhe suas ideias e dificuldades com<br/>
+        outros artistas!</ParagrafoI>
+        <Botao>
+          <Link to="/login">
+            <ImgBotao src={botao}/>
+          </Link>
+        </Botao>
       </FundoInicio>
     </>
   );

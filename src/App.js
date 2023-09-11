@@ -1,8 +1,10 @@
 
+import Rotas from "./Rotes/Rotas";
+
 function App() {
   return (
     <>
-     
+     <Rotas/>
     </>
   );
 }
