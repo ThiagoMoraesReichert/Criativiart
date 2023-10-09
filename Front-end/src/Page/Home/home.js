@@ -27,10 +27,10 @@ function Home(){
                             </SSespaco>
                         </SS>
                         <BotoesDisplay>
-                            <LinkStyled to="/profile"><Botoes>Perfil</Botoes></LinkStyled>
-                            <LinkStyled to="/home"><Botoes>Início</Botoes></LinkStyled>
-                            <LinkStyled to="/configuracao"><Botoes>Configurações</Botoes></LinkStyled>
-                            <LinkStyled to="/inicio"><BotaoSair>Sair</BotaoSair></LinkStyled>
+                            <LinkStyled to="profile"><Botoes>Perfil</Botoes></LinkStyled>
+                            <LinkStyled to="home"><Botoes>Início</Botoes></LinkStyled>
+                            <LinkStyled to="configuracao"><Botoes>Configurações</Botoes></LinkStyled>
+                            <LinkStyled to="inicio"><BotaoSair>Sair</BotaoSair></LinkStyled>
                         </BotoesDisplay>
                     </Centralizar>
                 </ColunaConfig>

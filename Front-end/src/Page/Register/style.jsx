@@ -14,7 +14,6 @@ export const BarraTituloR = styled.h2`
   margin-top: 13vh;
   text-decoration: none;
   font-weight: normal;
-  
 `
 
 export const BotaoEntrarR = styled.button`
