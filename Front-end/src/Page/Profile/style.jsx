@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import Banner from "./../../Img/banner.png"
-import BarrasLaterais from "./../../Img/barrasLaterais.svg"
-import { ColunaConfig } from "../Home/style"
+import BarrasLaterais from "./../../Img/barraslaterais.png"
 
 export const BannerProfile = styled.div`
     height: 40vh;
@@ -59,27 +58,36 @@ export const BotoesProfileGrid = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-gap: 15px;
 `
+
 export const SidebarContainer = styled.div`
-    width: 0;
     height: 100%;
+    overflow: hidden;
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #333;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 20px;
+    display: none;
+
 `;
 
 export const BarrasLateraisDropdown = styled.button`
     background-image: url(${BarrasLaterais});
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     border: none;
+    width: 3vw;
+    height: 4vh;
+    margin-right: 93vw;
+    margin-bottom: 25vh;
     cursor: pointer;
     padding: 10px;
     position: absolute;
 
+    
 
-  &:hover + ${SidebarContainer} {
-    width: 200px;
-  }
+    &:hover ${SidebarContainer} {
+        display: block;
+    }
 `
+

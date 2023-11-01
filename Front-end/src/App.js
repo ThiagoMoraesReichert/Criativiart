@@ -8,9 +8,9 @@ function App() {
     <>
     <GlobalStyled/>
     
-    <BrowserRouter>
-      <Profile/>
-    </BrowserRouter>
+    {/* <BrowserRouter> */}
+      <Rotas/>
+    {/* </BrowserRouter> */}
     </>
   );
 }

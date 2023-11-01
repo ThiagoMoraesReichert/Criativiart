@@ -52,7 +52,7 @@ export const BotaoSair = styled.button`
     color: #FF0000;
     cursor: pointer;
     margin-top: 13vh;
-    position: absolute;
+    position: sticky;
     width: 25vw;
     height: 8vh;
     background-color: transparent;
@@ -72,23 +72,6 @@ export const LinkStyled = styled(Link)`
 export const LinkStyledSair = styled(Link)`
     text-decoration: none;
     color: #FF0000;
-    position: absolute;
-`
-
-export const SinoStyled = styled.img`
-    height: 6vh;
-    width: 3vw;
-
-`
-
-export const BotaoSino = styled.button`
-    background-color: transparent;
-    margin-right: 17vw;
-    border: 0;
-    outline: 0;
-    margin-bottom: 66vh;
-    position: absolute;
-    cursor: pointer;
 `
 
 
@@ -144,8 +127,7 @@ export const SeguidosSeguindo = styled.p`
 
 export const SS = styled.div`
     display: flex;
-    padding-top: 10vh;
-    position: absolute;
+    position: relative;
 `
 
 export const SSespaco = styled.div`

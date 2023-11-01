@@ -3,7 +3,7 @@ const express = require('express');
 // Importar o cors para lidar com requisições externas
 const cors = require('cors');
 // Importar as rotas para serem executadas na aplicação
-const userRouter = require('./routes/userRouter');
+const userRouter = require('./routes/useRouter');
 const loginRouter = require('./routes/loginRouter');
 // Importar o pacote dotenv, gerenciador de variáveis de ambiente
 const dotenv = require('dotenv').config();
