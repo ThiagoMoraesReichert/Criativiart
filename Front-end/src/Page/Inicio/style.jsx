@@ -46,7 +46,8 @@ export const Botao = styled.button`
   cursor: pointer;
   background: transparent;
   border: 0;
-  margin-left: 6%;
+  margin-left: 10%;
+  margin-top: 3%;
 `;
 
 export const ImgBotao = styled.img`

@@ -12,6 +12,12 @@ export const AdjustDiv = styled.div`
     padding-left: 54vw;
     position: absolute;
     margin-top: 10vh;
+    z-index: 1;
+`
+
+export const Menu = styled.div`
+    position: absolute;
+    z-index: 2;
 `
 
 export const SubTitulo = styled.p`

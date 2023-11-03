@@ -7,11 +7,12 @@ export const BarraR = styled.input`
   font-size: 25px;
   outline: 0;
   margin-top: 8vh;
+  padding-left: 20px;
 `
 
 export const BarraTituloR = styled.h2`
   color: White;
-  margin-top: 13vh;
+  margin-top: 11.5vh;
   text-decoration: none;
   font-weight: normal;
 `

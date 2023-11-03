@@ -19,11 +19,12 @@ export const Barra = styled.input`
   font-size: 25px;
   outline: 0;
   margin-top: 15vh;
+  padding-left: 20px;
 `
 
 export const BarraTitulo = styled.h2`
   color: White;
-  margin-top: 20vh;
+  margin-top: 18.5vh;
   text-decoration: none;
   font-weight: normal;
   

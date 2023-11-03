@@ -8,7 +8,7 @@ function Profile(){
     return(
         <>
             <BannerProfile>
-
+                
                 <BarrasLateraisDropdown>
                 <SidebarContainer>
                     <ColunaConfig>
