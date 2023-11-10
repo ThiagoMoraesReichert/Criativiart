@@ -23,6 +23,7 @@ function Login() {
     //console.log(response.data);
 
     localStorage.setItem("@Auth:user", JSON.stringify(response.data.data[0].nome));
+    localStorage.setItem("@Auth:id", JSON.stringify(response.data.data[0].id));
     localStorage.setItem("@Auth:token", response.data.data[0].token);
     
     return navigate("/home")

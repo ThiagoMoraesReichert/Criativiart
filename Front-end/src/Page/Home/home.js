@@ -1,36 +1,28 @@
-import { BarraPesquisa, BotaoPostar, BotaoPostarImg, BotaoSair, Botoes, BotoesDisplay, Centralizar, ColunaConfig, FundoHome, HeaderHome, LinkStyled, Nome, SS, SSespaco, SeguidosSeguindo, UsuarioIcon } from "./style";
-import Usuario from "./../../Img/usuario.png"
+import { BarraPesquisa, BotaoPostar, BotaoPostarImg, FundoHome, HeaderHome } from "./style";
 import Lapis from "./../../Img/lapis.png"
-
+import Modal from "../../components/Modal/Modal";
+import { useState } from "react";
+import MenuBar from "../../components/MenuBar/Menu";
 
 
 function Home(){
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const toggleModal = () => {
+      setIsModalOpen(!isModalOpen);
+    };
+
     return(
         <>
             <FundoHome>
                 
                 <HeaderHome>
                     <BarraPesquisa placeholder="Pesquise algo aqui..."/>
-                    <BotaoPostar><BotaoPostarImg src={Lapis}/></BotaoPostar>
+                    <BotaoPostar onClick={toggleModal}><BotaoPostarImg src={Lapis}/></BotaoPostar>
+                    <Modal isOpen={isModalOpen} toggleModal={toggleModal} />
                 </HeaderHome>
-                <ColunaConfig>
-                    <Centralizar>
-                        <UsuarioIcon src={Usuario}/>
-                        <Nome>Usuário</Nome>
-                        <SS>
-                            <SSespaco>
-                                <SeguidosSeguindo>0 Seguidores</SeguidosSeguindo>
-                                <SeguidosSeguindo>0 Seguindo</SeguidosSeguindo>
-                            </SSespaco>
-                        </SS>
-                        <BotoesDisplay>
-                            <LinkStyled to="/profile"><Botoes>Perfil</Botoes></LinkStyled>
-                            <LinkStyled to="/home"><Botoes>Início</Botoes></LinkStyled>
-                            <LinkStyled to="/configuracao"><Botoes>Configurações</Botoes></LinkStyled>
-                            <LinkStyled to="/inicio"><BotaoSair>Sair</BotaoSair></LinkStyled>
-                        </BotoesDisplay>
-                    </Centralizar>
-                </ColunaConfig>
+                <MenuBar/>
 
             </FundoHome>
         </>

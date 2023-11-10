@@ -25,6 +25,7 @@ export const SubTitulo = styled.p`
     color: white;
 `
 
+
 export const BarraAlterarNome = styled.input`
     width: 18vw;
     height: 5vh;
@@ -59,7 +60,7 @@ export const BotaoExcluir = styled.button`
 
 export const BotaoSalvar = styled.button`
     margin-top: 5px;
-    width: 10vw;
+    padding: 0px 7px;
     border: none;
     outline: 0;
     height: 5vh;
