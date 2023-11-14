@@ -67,7 +67,7 @@ export const Alinhamento = styled.form`
 
 export const Flor = styled.img`
   position: absolute;
-  margin-left: 77.58%;
+  margin-left: 79.4%;
   height: 25vh;
-  margin-top: 36.5%;
+  margin-top: 33.5%;
 `

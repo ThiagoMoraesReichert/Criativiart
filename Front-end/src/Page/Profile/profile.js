@@ -5,6 +5,8 @@ import MenuBar from "../../components/MenuBar/Menu"
 
 
 function Profile(){
+    const nome = localStorage.getItem('@Auth:user').replace(/["]/g, '');
+
     return(
         <>
             <BannerProfile>
@@ -16,7 +18,7 @@ function Profile(){
                 </BarrasLateraisDropdown>
 
                 <ProfilePic src={User}/>
-                <TextSublinhado> Nome do usuário</TextSublinhado>
+                <TextSublinhado>{nome}</TextSublinhado>
                 <GridSeguindoSeguidores>
                     <SeguidosSeguindo> Seguidores: 0</SeguidosSeguindo>
                     <SeguidosSeguindo> Seguindo: 0</SeguidosSeguindo>
