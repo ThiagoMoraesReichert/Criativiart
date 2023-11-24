@@ -1,4 +1,4 @@
-import { BarraPesquisa, BotaoPerfilUsuarios, BotaoPesquisar, BotaoPostar, BotaoPostarImg, ContainerColumn, DivUsuariosPesquisa, FundoHome, HeaderHome, InputComment, PostCard } from "./style";
+import { BarraPesquisa, BotaoComment, BotaoPerfilUsuarios, BotaoPesquisar, BotaoPostar, BotaoPostarImg, ContainerColumn, DivUsuariosPesquisa, FundoHome, HeaderHome, InputComment, PostCard } from "./style";
 import Lapis from "./../../Img/lapis.png"
 import Modal from "../../components/Modal/Modal";
 import { useState } from "react";
@@ -13,9 +13,51 @@ function Home(){
     const [usersList, setUsersList] = useState([]);
     const [usersSearch, setUserSearch] = useState([]);
     const [userName, setUserName] = useState("");
+
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     const navigate = useNavigate();
+
     const [postsList, setPostsList] = useState([]);
+    const [commentList, setCommentsList] = useState([]);
+	const [descricao, setComment] = useState("");
+    const { idpost } = useParams();
+
+    const handleSubmitComment = async (e) => {
+		e.preventDefault();
+        
+		const data = {
+            descricao,
+            usuarios_id: localStorage.getItem('@Auth:id'),
+            post_id: idpost
+        }
+        
+        const response = await api.post('/comment/create', data);
+        
+        if (response.data.success) {
+            setComment('')
+            alert('Comentário criado');
+			fetchComments();
+        } else {
+            alert('Não foi criado comentário');
+        }        
+	};
+
+	const fetchComments = async () => {
+		const response = await api.get('/comments/' + idpost);
+		
+		if (response.data.success) {        
+			setCommentsList(response.data.data);
+		} else {
+			alert('Não foi criado comentário');
+
+        }		
+	};
+
+	useEffect(() => {		
+		fetchComments();
+	}, []);
+
 
 
     const toggleModal = () => {
@@ -109,9 +151,15 @@ function Home(){
                                     <p>{posts.descricao}</p>
                                 </div>
                             </PostCard>
-                            <InputComment
-                            placeholder="Escreva um comentário"
-                            />
+                            <form onSubmit={handleSubmitComment}>
+                                <InputComment
+                                placeholder="Escreva um comentário"
+                                value={ descricao }
+                                onChange={(e) => setComment(e.target.value)}
+                                type='text'
+                                />
+                                <BotaoComment>Enviar</BotaoComment>
+                            </form>
                         </div>
                     ))}            
                 </ContainerColumn>

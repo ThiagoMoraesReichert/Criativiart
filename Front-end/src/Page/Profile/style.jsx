@@ -124,6 +124,17 @@ export const BotaoFecharModal = styled.button`
     }
 `
 
+export const ContainerArtes = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    img{
+        width: calc(33.33%);
+        box-sizing: border-box;
+    }
+`
+
 export const BotaoEnviarInput = styled.button`
     margin-top: 4vh;
     border: none;
@@ -187,6 +198,7 @@ export const BotaoSeguir = styled.button`
     display: flex;
     color: white;
     align-items: center;
+    cursor: pointer;
 
     img{
         width: 15px;

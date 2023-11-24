@@ -7,6 +7,7 @@ const userRouter = require('./routes/useRouter');
 const loginRouter = require('./routes/loginRouter');
 const postRouter = require('./routes/postRouter');
 const perfilRouter = require('./routes/perfilRouter');
+const commentRouter = require('./routes/commentsRouter')
 // Importar o pacote dotenv, gerenciador de variáveis de ambiente
 const dotenv = require('dotenv').config();
 
@@ -23,6 +24,7 @@ app.use('/api/auth', loginRouter);
 app.use('/api', postRouter);
 app.use('/api', perfilRouter);
 app.use('/uploads', express.static(__dirname + '\\public'));
+app.use('/api', commentRouter);
 // Setar a porta do servidor, a parir do arquivo .env
 app.set('port', process.env.PORT || 3333);
 

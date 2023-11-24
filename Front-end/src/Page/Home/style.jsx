@@ -107,6 +107,8 @@ export const ContainerColumn = styled.div`
     padding-bottom: 5vh;
 `
 
+
+
 export const BotaoPostarImg = styled.img`
     justify-content: center;
     align-items: center;
@@ -130,7 +132,7 @@ export const BotaoPerfilUsuarios = styled.button`
 `
 
 export const InputComment = styled.input`
-    width: 55%;
+    width: 45%;
     background-color: #44509F;
     height: 20px;
     outline: 0;
@@ -141,3 +143,19 @@ export const InputComment = styled.input`
     padding: 13px;
 `
     
+export const BotaoComment = styled.button`
+    padding: 2px 5px;
+    background-color: #62cf62;
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    height: 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 7%;
+    border: none;
+    outline: 0;
+`
+export const CommentDiv = styled.div`
+    margin-left: 36%;
+`

@@ -1,15 +1,12 @@
-import { BannerProfile, BarraProfile, BarrasLateraisDropdown, BotoesProfile, BotoesProfileGrid, GridSeguindoSeguidores, LabelPerfil, ProfilePic, SidebarContainer, TextSublinhado, BotaoSobre, Alinhamento, BotaoSeguir, BotaoFecharModal, BotaoEnviarInput, InputFileStyle } from "./style"
+import { BannerProfile, BarraProfile, BarrasLateraisDropdown, BotoesProfile, BotoesProfileGrid, GridSeguindoSeguidores, LabelPerfil, ProfilePic, SidebarContainer, TextSublinhado, BotaoSobre, Alinhamento, BotaoSeguir, BotaoFecharModal, BotaoEnviarInput, InputFileStyle, ContainerArtes } from "./style"
 import User from "./../../Img/usuario.png"
 import { LinkStyled, SeguidosSeguindo } from "../../components/MenuBar/style"
 import MenuBar from "../../components/MenuBar/Menu"
-import { InputImage } from "../Conf/style";
 import { useState } from "react";
 import Modal from "../../components/MoldaSobre/Modal";
 import { useEffect } from "react";
-import axios from "axios";
 import { api } from"../../services/api"
 import SeguirIcon from "../../Img/seguir_icon.png";
-import Button from 'react-bootstrap/Button';
 import ModalB from 'react-bootstrap/Modal';
 
 function Profile(){
@@ -17,8 +14,9 @@ function Profile(){
     const [abaAtiva, setAbaAtiva] = useState('artes');
     const [image, setImage] = useState();
     const [artes, setArtes] = useState([]);
+    const [teste] = useState([])
     const imagens = 'http://localhost:3008/uploads/';
-    const [informacoes, setInformacoes] = useState({ sobre: "", contato: "" });
+    const [informacoes, setInformacoes] = useState([]);
     const handleClick = (aba) => {
       setAbaAtiva(aba);
     };
@@ -67,7 +65,7 @@ function Profile(){
         const response = await api.get('/perfil/artes/' + id);
         console.log(response.data);
         if(response.data.success) {
-            setArtes(response.data.data[0]);
+            setArtes(response.data.data);
             console.log(artes);
         }
     }
@@ -75,10 +73,9 @@ function Profile(){
     useEffect(() => {
         fetchArtes();
     }, [])
-
+    console.log(informacoes);
     return(
         <>
-        
             <BannerProfile>
                 
                 <BarrasLateraisDropdown>
@@ -134,15 +131,16 @@ function Profile(){
             </BarraProfile>
 
             {abaAtiva === 'artes' && (
-                <div>
-                    {/* {artes.imagem &&
-                        <img src={imagens + artes.imagem} width={300} height={300}/>
-                    } */}
-
-                    {/* {artes.map((artes) => (
-                        <img key={artes.id} src={imagens + artes.imagem} width={300} height={300} />
-                    ))} */}
-                </div>
+                <ContainerArtes>
+                    {artes.map((arte)=>(
+                        <img 
+                            key={artes.id} 
+                            src={imagens + arte.imagem} 
+                            height={'360px'}
+                        />
+                        
+                    ))}
+                </ContainerArtes>
             )}
 
             {abaAtiva === 'sobreAba' && (
@@ -150,11 +148,12 @@ function Profile(){
                     <BotaoSobre onClick={toggleModal}>Adicionar informações</BotaoSobre>
                     <Modal isOpen={isModalOpen} toggleModal={toggleModal} />
 
-                    <div>
-                        <h2>Biografia:</h2>
-                        <p>{informacoes.sobre}</p>
+                
+                    <div key={informacao.id}>
+                        {/* <h2>Biografia:</h2>
+                        <p>{informacao.sobre}</p>
                         <h3>Contato:</h3>
-                        <p>{informacoes.contato}</p>
+                        <p>{informacao.contato}</p> */}
                     </div>
 
                 </Alinhamento>
