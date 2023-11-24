@@ -20,6 +20,7 @@ export default function Modal({ isOpen, toggleModal }) {
 
         console.log(data);
 
+
         const response = await axios.post('http://localhost:3008/api/post/create', data);
 
         if(response.data.success) {

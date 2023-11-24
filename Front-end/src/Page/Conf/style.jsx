@@ -45,6 +45,20 @@ export const AdjustAlterName = styled.div`
     grid-gap: 5px;
 `
 
+export const InputImage = styled.input`
+    display: none;
+`
+
+export const InputImageTrue = styled.label`
+    margin-top: 10px;
+    padding: 2px 7px;
+    border-radius: 5px;
+    background-color: #50c168;
+    color: white;
+    font-size: 4vh;
+    cursor: pointer;
+`
+
 export const BotaoExcluir = styled.button`
     margin-top: 21vh;
     width: 15vw;

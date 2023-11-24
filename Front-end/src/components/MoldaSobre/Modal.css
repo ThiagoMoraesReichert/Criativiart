@@ -41,6 +41,7 @@ body.active-modal {
 
 .modal-content h2{
     color: white;
+
 }
 
 .close-modal {
@@ -54,6 +55,7 @@ body.active-modal {
     border: 0;
     color: black;
     background-color: #2A3795;
+    
 }
 
 .close-modal:hover {

@@ -1,14 +1,84 @@
-import { BannerProfile, BarraProfile, BarrasLateraisDropdown, BotoesProfile, BotoesProfileGrid, GridSeguindoSeguidores, ProfilePic, SidebarContainer, TextSublinhado } from "./style"
+import { BannerProfile, BarraProfile, BarrasLateraisDropdown, BotoesProfile, BotoesProfileGrid, GridSeguindoSeguidores, LabelPerfil, ProfilePic, SidebarContainer, TextSublinhado, BotaoSobre, Alinhamento, BotaoSeguir, BotaoFecharModal, BotaoEnviarInput, InputFileStyle } from "./style"
 import User from "./../../Img/usuario.png"
 import { LinkStyled, SeguidosSeguindo } from "../../components/MenuBar/style"
 import MenuBar from "../../components/MenuBar/Menu"
-
+import { InputImage } from "../Conf/style";
+import { useState } from "react";
+import Modal from "../../components/MoldaSobre/Modal";
+import { useEffect } from "react";
+import axios from "axios";
+import { api } from"../../services/api"
+import SeguirIcon from "../../Img/seguir_icon.png";
+import Button from 'react-bootstrap/Button';
+import ModalB from 'react-bootstrap/Modal';
 
 function Profile(){
     const nome = localStorage.getItem('@Auth:user').replace(/["]/g, '');
+    const [abaAtiva, setAbaAtiva] = useState('artes');
+    const [image, setImage] = useState();
+    const [artes, setArtes] = useState([]);
+    const imagens = 'http://localhost:3008/uploads/';
+    const [informacoes, setInformacoes] = useState({ sobre: "", contato: "" });
+    const handleClick = (aba) => {
+      setAbaAtiva(aba);
+    };
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const toggleModal = () => {
+      setIsModalOpen(!isModalOpen);
+    };
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const fetchDataInformacoes = async () => {
+        try {
+            const userId = localStorage.getItem('@Auth:id');
+            const response = await api.get(`/user/informacoesUsuario/${userId}`);
+            setInformacoes(response.data.data);  // Ajuste aqui para pegar o primeiro item da resposta
+            console.log(response)
+        } catch (error) {
+            console.error('Erro ao buscar informações:', error.message);
+          }
+        };
+
+    useEffect(() => {
+        fetchDataInformacoes();
+    }, []);
+
+    const handleFile = async () => {
+        let formData = new FormData();
+
+        formData.append('id_usuario', localStorage.getItem('@Auth:id'));
+        formData.append('file', image);
+
+        const response = await api.post('/perfil/create', formData);
+
+        if (response.data.success) {
+            handleClose();
+            alert('Sucesso');
+        } else {
+            alert('Sem sucesso');
+        }
+    }
+
+    const fetchArtes = async () => {
+        const id = localStorage.getItem('@Auth:id');
+        const response = await api.get('/perfil/artes/' + id);
+        console.log(response.data);
+        if(response.data.success) {
+            setArtes(response.data.data[0]);
+            console.log(artes);
+        }
+    }
+
+    useEffect(() => {
+        fetchArtes();
+    }, [])
 
     return(
         <>
+        
             <BannerProfile>
                 
                 <BarrasLateraisDropdown>
@@ -19,6 +89,11 @@ function Profile(){
 
                 <ProfilePic src={User}/>
                 <TextSublinhado>{nome}</TextSublinhado>
+
+                {/* <BotaoSeguir>
+                    <img src={SeguirIcon} />  
+                    Seguir
+                </BotaoSeguir> */}
                 <GridSeguindoSeguidores>
                     <SeguidosSeguindo> Seguidores: 0</SeguidosSeguindo>
                     <SeguidosSeguindo> Seguindo: 0</SeguidosSeguindo>
@@ -27,10 +102,63 @@ function Profile(){
             
             <BarraProfile>
                 <BotoesProfileGrid>
-                    <LinkStyled to="profile"><BotoesProfile>Artes</BotoesProfile></LinkStyled>
-                    <LinkStyled to="profile"><BotoesProfile>Sobre</BotoesProfile></LinkStyled>
+                    <LinkStyled><BotoesProfile onClick={() => handleClick('artes')}>Artes</BotoesProfile></LinkStyled>
+                    <LinkStyled><BotoesProfile onClick={() => handleClick('sobreAba')}>Sobre</BotoesProfile></LinkStyled>
+                    
+                    <BotoesProfile onClick={handleShow}>
+                        Enviar Arte
+                    </BotoesProfile>
+
+
+                    <ModalB show={show} onHide={handleClose}>    
+                        <BotaoFecharModal onClick={handleClose}>
+                            ⛒
+                        </BotaoFecharModal>                    
+                        <ModalB.Body>                
+                            <LabelPerfil for="labelProfile">Escolha a ilustração aqui!</LabelPerfil>
+                            <InputFileStyle                                        
+                                id="labelProfile" 
+                                type="file" 
+                                accept="image/*"
+                                onChange={(e) => setImage(e.target.files[0])}
+                            />
+                        </ModalB.Body>
+                        <ModalB.Footer>
+                        <BotaoEnviarInput onClick={handleFile}>
+                            Salvar
+                        </BotaoEnviarInput>
+                        </ModalB.Footer>
+                    </ModalB>
+
                 </BotoesProfileGrid>
             </BarraProfile>
+
+            {abaAtiva === 'artes' && (
+                <div>
+                    {/* {artes.imagem &&
+                        <img src={imagens + artes.imagem} width={300} height={300}/>
+                    } */}
+
+                    {/* {artes.map((artes) => (
+                        <img key={artes.id} src={imagens + artes.imagem} width={300} height={300} />
+                    ))} */}
+                </div>
+            )}
+
+            {abaAtiva === 'sobreAba' && (
+                <Alinhamento>
+                    <BotaoSobre onClick={toggleModal}>Adicionar informações</BotaoSobre>
+                    <Modal isOpen={isModalOpen} toggleModal={toggleModal} />
+
+                    <div>
+                        <h2>Biografia:</h2>
+                        <p>{informacoes.sobre}</p>
+                        <h3>Contato:</h3>
+                        <p>{informacoes.contato}</p>
+                    </div>
+
+                </Alinhamento>
+            )}
         </>
     )
 }

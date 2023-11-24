@@ -3,6 +3,7 @@ const connection = require('../config/db');
 
 // Pacote para criptografar a senha de usuario
 const bcrypt = require('bcrypt');
+const { param } = require('../routes/useRouter');
 
 // Função que retorna todos usuários no banco de dados
 async function listUsers(request, response) {
@@ -83,12 +84,12 @@ async function storeUser(request, response) {
 // Função que atualiza o usuário no banco
 async function updateUser(request, response) {
     // Preparar o comando de execução no banco
-    const query = "UPDATE usuarios SET `nome` = ?, `senha` = ? WHERE `id` = ?";
+    const query = "UPDATE usuarios SET `sobre` = ?, `contato` = ? WHERE `id` = ?";
 
     // Recuperar os dados enviados na requisição respectivamente
     const params = Array(
-        request.body.nome,
-        bcrypt.hashSync(request.body.senha, 10),        
+        request.body.sobre,
+        request.body.contato,
         request.params.id  // Recebimento de parametro da rota
     );
 
@@ -121,6 +122,38 @@ async function updateUser(request, response) {
                     sqlMessage: err.sqlMessage
                 });
         }
+    });
+}
+
+async function informacoesUsuario(request, response) {
+    // Preparar o comando de execução no banco
+    connection.query('SELECT `sobre`, `contato` FROM usuarios WHERE `id` = ?', (err, results) => { 
+
+        try {  // Tenta retornar as solicitações requisitadas
+            if (results) {  // Se tiver conteúdo 
+                response.status(200).json({
+                    success: true,
+                    message: 'Retorno de usuarios com sucesso!',
+                    data: results
+                });
+            } else {  // Retorno com informações de erros
+                response
+                    .status(400)
+                    .json({
+                        success: false,
+                        message: `Não foi possível retornar os usuários.`,
+                        query: err.sql,
+                        sqlMessage: err.sqlMessage
+                    });
+            }
+        } catch (e) {  // Caso aconteça qualquer erro no processo na requisição, retorna uma mensagem amigável
+            response.status(400).json({
+                succes: false,
+                message: "Ocorreu um erro. Não foi possível realizar sua requisição!",
+                query: err.sql,
+                sqlMessage: err.sqlMessage
+            })
+        }   
     });
 }
 
@@ -166,9 +199,37 @@ async function deleteUser(request, response) {
     });
 }
 
+async function searchUsers(request, response) {
+    const query = 'SELECT * FROM usuarios WHERE nome LIKE "%?%";';
+    
+    const nome = Array(request.params.nome);
+
+    connection.query('SELECT * FROM usuarios WHERE nome LIKE "%'+nome+'%"', (err, results) => {
+        if(results) {
+            response
+                .status(200)
+                .json({
+                    success: true,
+                    message: "OK",
+                    data: results
+                })
+        } else {
+            response
+                .status(400)
+                .json({
+                    success: false,
+                    message: "OK",
+                    data: results
+                })
+        }
+    })
+}
+
 module.exports = {
     listUsers,
     storeUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    searchUsers,
+    informacoesUsuario
 }

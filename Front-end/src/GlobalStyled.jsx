@@ -9,5 +9,6 @@ export default createGlobalStyle`
 
   body {
     background-color: #373D68;
+    height: 100%;
   }
 `;

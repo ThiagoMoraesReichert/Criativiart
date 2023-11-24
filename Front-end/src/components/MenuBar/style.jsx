@@ -17,8 +17,11 @@ export const Centralizar = styled.div`
 `
 
 export const UsuarioIcon = styled.img`
-    height: 20vh;
-    width: 10vw;
+    min-height: 20vh;
+    min-width: 10vw;
+    border-radius: 50%;
+    max-height: 20vh;
+    max-width: 10vw;
     margin-top: 25%;
 `
 

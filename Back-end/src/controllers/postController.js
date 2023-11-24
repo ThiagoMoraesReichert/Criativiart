@@ -35,4 +35,62 @@ async function store(request, response) {
     })
 }
 
-module.exports = { store }
+async function nomePosts(request, response) {
+    const query = 'SELECT usuarios.nome FROM usuarios JOIN posts ON usuarios.id = posts.user_id WHERE usuarios.id = 2;';
+
+
+    const params = Array(
+        request.params.nome
+        // imagem
+        //descrição post
+    );
+
+    connection.query(query, params, (err, results) => {
+        console.log(results)
+        if(results) {
+            response
+                .status(200)
+                .json({
+                    success: true,
+                    message: "OK",
+                    data: results
+                })
+        } else {
+            response
+                .status(400)
+                .json({
+                    success: false,
+                    message: "OK",
+                    data: results
+                })
+        }
+    })
+}
+
+async function listPosts(request, response) {
+    const query = 'SELECT usuarios.nome, posts.* FROM usuarios JOIN (SELECT * FROM posts GROUP BY posts.id ORDER BY posts.id DESC) AS posts ON usuarios.id = posts.user_id;';
+
+    connection.query(query, (err, results) => {        
+        if (results) {
+            response
+                .status(200)
+                .json({
+                    success: true,
+                    message: `Sucesso! Lista de posts.`,
+                    data: results
+                });
+        } else {
+            response
+                .status(400)
+                .json({
+                    success: false,
+                    message: `Não foi possível realizar a remoção. Verifique os dados informados`,
+                    query: err.sql,
+                    sqlMessage: err.sqlMessage
+                });
+        }
+    })
+}
+
+
+module.exports = { store, nomePosts, listPosts }
