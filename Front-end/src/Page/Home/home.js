@@ -19,46 +19,6 @@ function Home(){
     const navigate = useNavigate();
 
     const [postsList, setPostsList] = useState([]);
-    const [commentList, setCommentsList] = useState([]);
-	const [descricao, setComment] = useState("");
-    const { idpost } = useParams();
-
-    const handleSubmitComment = async (e) => {
-		e.preventDefault();
-        
-		const data = {
-            descricao,
-            usuarios_id: localStorage.getItem('@Auth:id'),
-            post_id: idpost
-        }
-        
-        const response = await api.post('/comment/create', data);
-        
-        if (response.data.success) {
-            setComment('')
-            alert('Comentário criado');
-			fetchComments();
-        } else {
-            alert('Não foi criado comentário');
-        }        
-	};
-
-	const fetchComments = async () => {
-		const response = await api.get('/comments/' + idpost);
-		
-		if (response.data.success) {        
-			setCommentsList(response.data.data);
-		} else {
-			alert('Não foi criado comentário');
-
-        }		
-	};
-
-	useEffect(() => {		
-		fetchComments();
-	}, []);
-
-
 
     const toggleModal = () => {
       setIsModalOpen(!isModalOpen);
@@ -68,7 +28,6 @@ function Home(){
         const response = await api.get('/users');     
         console.log(response.data.data);   
         setUsersList(response.data.data);
-        //console.log(usersList);
     }
 
     useEffect(() => {
@@ -86,10 +45,6 @@ function Home(){
 
     id = localStorage.getItem('@Auth:token')
 
-    // useEffect(() => {
-    //     handlerSearch();
-    // }, [userName]);
-
     useEffect(() => {
         const checkUser = () => {
             if (!localStorage.getItem('@Auth:token')) {
@@ -106,9 +61,8 @@ function Home(){
 
     useEffect(() => {
         fetchDataPost();
-    }, []);
+    }, [fetchDataPost]);
 
-    
 
     return(
         <>
@@ -122,7 +76,6 @@ function Home(){
                     <BotaoPesquisar onClick={handlerSearch}>Pesquisar</BotaoPesquisar>
 
                     <DivUsuariosPesquisa>
-                        {/* Parte em que mostra os usuarios */}
                         {usersSearch.map((user) => {
                             return (
                                 <>
@@ -151,15 +104,12 @@ function Home(){
                                     <p>{posts.descricao}</p>
                                 </div>
                             </PostCard>
-                            <form onSubmit={handleSubmitComment}>
-                                <InputComment
+
+                            <InputComment
                                 placeholder="Escreva um comentário"
-                                value={ descricao }
-                                onChange={(e) => setComment(e.target.value)}
                                 type='text'
-                                />
-                                <BotaoComment>Enviar</BotaoComment>
-                            </form>
+                            />
+                            <BotaoComment>Enviar</BotaoComment>
                         </div>
                     ))}            
                 </ContainerColumn>

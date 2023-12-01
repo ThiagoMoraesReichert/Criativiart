@@ -2,7 +2,6 @@ import MenuBar from "../../components/MenuBar/Menu";
 import { Centralizar, UsuarioIcon } from "../../components/MenuBar/style";
 import Usuario from "./../../Img/usuario.png"
 import { AdjustAlterName, AdjustDiv, BarraAlterarNome, BotaoExcluir, BotaoSalvar, InputImage, InputImageTrue, Menu, SubTitulo, Titulo } from "./style";
-import axios from "axios";
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 

@@ -1,8 +1,6 @@
 import { Alinhamento, Barra, BarraTitulo, BotaoEntrar, Flor, Fundo, ImgFundo, LinkMudar, SubTexto } from "./style";
 import Loginfundo from "./../../Img/Loginfundo.png";
 import Flores from "./../../Img/flores.png"
-//import { useContext } from "react";
-//import { AuthContext } from "../../context/AuthContext";
 import { useState } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
@@ -20,7 +18,6 @@ function Login() {
       senha
     };
     const response = await axios.post('http://localhost:3008/api/auth/login', data)
-    //console.log(response.data);
 
     localStorage.setItem("@Auth:user", JSON.stringify(response.data.data[0].nome));
     localStorage.setItem("@Auth:id", JSON.stringify(response.data.data[0].id));

@@ -4,7 +4,6 @@ import Flores from "./../../Img/flores.png";
 import { BarraTituloR, BarraR, BotaoEntrarR, SubTextoR } from "./style"
 import { useState } from "react";
 import axios from "axios";
-//import { api } from "../../../../Back-end/src/services/api"
 
 function Register(){
     const [email, setEmail] = useState("");
@@ -55,7 +54,7 @@ function Register(){
                 value={senha}
                 onChange={(e) => setPassword(e.target.value)}            
                 />
-
+                
                 <BotaoEntrarR type="submit">Criar conta</BotaoEntrarR>
                 <SubTextoR>Já tem uma conta? <LinkMudar to="/login"> Clique aqui!</LinkMudar></SubTextoR>
             </Alinhamento>

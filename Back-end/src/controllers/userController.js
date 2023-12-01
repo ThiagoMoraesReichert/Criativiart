@@ -127,8 +127,11 @@ async function updateUser(request, response) {
 
 async function informacoesUsuario(request, response) {
     // Preparar o comando de execução no banco
-    connection.query('SELECT `sobre`, `contato` FROM usuarios WHERE `id` = ?', (err, results) => { 
+    const query = "SELECT sobre, contato FROM usuarios WHERE id = ?;";
 
+    const params = Array(request.params.id);
+
+    connection.query(query, params, (err, results) => { 
         try {  // Tenta retornar as solicitações requisitadas
             if (results) {  // Se tiver conteúdo 
                 response.status(200).json({

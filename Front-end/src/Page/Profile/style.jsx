@@ -208,3 +208,16 @@ export const BotaoSeguir = styled.button`
         padding-top: 1px;
     }
 `
+
+export const DivSobre = styled.div`
+    margin-top: 10px;
+    color: white;
+
+    h1 {
+        padding-bottom: 1vh;
+    }
+
+    h3 {
+        margin-bottom: 5vh;
+    }
+`

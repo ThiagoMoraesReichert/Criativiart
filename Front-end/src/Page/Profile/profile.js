@@ -1,4 +1,4 @@
-import { BannerProfile, BarraProfile, BarrasLateraisDropdown, BotoesProfile, BotoesProfileGrid, GridSeguindoSeguidores, LabelPerfil, ProfilePic, SidebarContainer, TextSublinhado, BotaoSobre, Alinhamento, BotaoSeguir, BotaoFecharModal, BotaoEnviarInput, InputFileStyle, ContainerArtes } from "./style"
+import { BannerProfile, BarraProfile, BarrasLateraisDropdown, BotoesProfile, BotoesProfileGrid, GridSeguindoSeguidores, LabelPerfil, ProfilePic, SidebarContainer, TextSublinhado, BotaoSobre, Alinhamento, BotaoSeguir, BotaoFecharModal, BotaoEnviarInput, InputFileStyle, ContainerArtes, DivSobre } from "./style"
 import User from "./../../Img/usuario.png"
 import { LinkStyled, SeguidosSeguindo } from "../../components/MenuBar/style"
 import MenuBar from "../../components/MenuBar/Menu"
@@ -14,9 +14,8 @@ function Profile(){
     const [abaAtiva, setAbaAtiva] = useState('artes');
     const [image, setImage] = useState();
     const [artes, setArtes] = useState([]);
-    const [teste] = useState([])
+    const [usuarioData, setUsuario] = useState([]);
     const imagens = 'http://localhost:3008/uploads/';
-    const [informacoes, setInformacoes] = useState([]);
     const handleClick = (aba) => {
       setAbaAtiva(aba);
     };
@@ -28,21 +27,6 @@ function Profile(){
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-    const fetchDataInformacoes = async () => {
-        try {
-            const userId = localStorage.getItem('@Auth:id');
-            const response = await api.get(`/user/informacoesUsuario/${userId}`);
-            setInformacoes(response.data.data);  // Ajuste aqui para pegar o primeiro item da resposta
-            console.log(response)
-        } catch (error) {
-            console.error('Erro ao buscar informações:', error.message);
-          }
-        };
-
-    useEffect(() => {
-        fetchDataInformacoes();
-    }, []);
 
     const handleFile = async () => {
         let formData = new FormData();
@@ -63,17 +47,21 @@ function Profile(){
     const fetchArtes = async () => {
         const id = localStorage.getItem('@Auth:id');
         const response = await api.get('/perfil/artes/' + id);
-        console.log(response.data);
+        const usuario = await api.get('/user/' + id);
+        
         if(response.data.success) {
             setArtes(response.data.data);
             console.log(artes);
+        }
+
+        if (usuario.data.success) {
+            setUsuario(usuario.data.data[0]);
         }
     }
 
     useEffect(() => {
         fetchArtes();
-    }, [])
-    console.log(informacoes);
+    }, [fetchArtes])
     return(
         <>
             <BannerProfile>
@@ -91,6 +79,7 @@ function Profile(){
                     <img src={SeguirIcon} />  
                     Seguir
                 </BotaoSeguir> */}
+
                 <GridSeguindoSeguidores>
                     <SeguidosSeguindo> Seguidores: 0</SeguidosSeguindo>
                     <SeguidosSeguindo> Seguindo: 0</SeguidosSeguindo>
@@ -147,15 +136,12 @@ function Profile(){
                 <Alinhamento>
                     <BotaoSobre onClick={toggleModal}>Adicionar informações</BotaoSobre>
                     <Modal isOpen={isModalOpen} toggleModal={toggleModal} />
-
-                
-                    <div key={informacao.id}>
-                        {/* <h2>Biografia:</h2>
-                        <p>{informacao.sobre}</p>
-                        <h3>Contato:</h3>
-                        <p>{informacao.contato}</p> */}
-                    </div>
-
+                    <DivSobre>
+                        <h1>Sobre:</h1>
+                        <h3>{usuarioData.sobre}</h3>
+                        <h1>Contato:</h1>
+                        <h3>{usuarioData.contato}</h3>
+                    </DivSobre>
                 </Alinhamento>
             )}
         </>
