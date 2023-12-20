@@ -1,6 +1,3 @@
 # Criativiart
 
-Criativiart é o projeto final realizado durante o meu curso de técnico em informação para internet na escola Senac!
-Este site foi feito em base de uma pesquisa realizada durante o meu trabalho de conclusão de curso (TCC), que visava uma necessidade da criação de um ambiente focado em comunicação
-entre artistas digitais. Dessa forma, seria possível reunir toda uma comunidade de artistas que necessitam de algum tipo de auxílio em seus processos criativos através de conversas
-com pessoas nas quais já passaram/estão passando pelo mesmo problema.
+Criativiart is the final project carried out during my course as an internet information technician at Senac! This website was created based on research carried out during my course completion work (TCC), which focused on the need to create an environment focused on communication between digital artists. In this way, it would be possible to bring together a whole community of artists who need some kind of help with their creative processes through conversations with people who have been through/are going through the same problem.
